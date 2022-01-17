@@ -2,7 +2,7 @@ let playerScore = 0;
 let computerScore = 0;
 let round = 0;
 
-/* Add events to the three buttons in the contianer */
+/* Add events to the three buttons in the contianer div */
 const btnRock = document.querySelector('.rock');
 btnRock.addEventListener('click', () => {
     playRound('rock', computerPlay());
@@ -18,13 +18,29 @@ btnScissors.addEventListener('click', () => {
     playRound('scissors', computerPlay())
 });
 
+/* Elements requiring modification during the paly of the game */
 const roundResult = document.querySelector(".round-result");
 const player = document.querySelector(".player-score");
 const computer = document.querySelector(".computer-score");
 const roundNum = document.querySelector(".rounds");
 const winner = document.querySelector(".winner");
 
-// A function that returns the computers choice
+/* Functionality for replay button */
+const replay = document.querySelector('.replay');
+replay.addEventListener('click', () => {
+    round = 0;
+    playerScore = 0;
+    computerScore = 0;
+    roundResult.textContent = "Start Game";
+    player.textContent = `Player: ${playerScore}`;
+    computer.textContent = `Computer ${computerScore}`;
+    roundNum.textContent = `Round: ${round}`;
+    document.querySelector('.rock').disabled = false;
+    document.querySelector('.paper').disabled = false;
+    document.querySelector('.scissors').disabled = false;
+});
+
+// Returns the computers choice for the game
 let computerPlay = () => {
     let choices = ['rock', 'paper', 'scissors'];
 
@@ -32,7 +48,7 @@ let computerPlay = () => {
     return choices[pick];
 };
 
-
+/* Called when player clicks one of the buttons */
 let playRound = (playerSelection, computerSelection) => {
     
     // First cases invovle player losing 
@@ -71,7 +87,7 @@ let playRound = (playerSelection, computerSelection) => {
     }
 };
 
-
+/* Outputs the winner when round 5 is over */
 let printWinner = () => {
     if(playerScore > computerScore) {
         winner.textContent = "Player Wins!"
@@ -85,6 +101,7 @@ let printWinner = () => {
     }
 }
 
+/* disables the button funcitionality */
 let disableBtns = () => {
     document.querySelector('.rock').disabled = true;
     document.querySelector('.paper').disabled = true;
